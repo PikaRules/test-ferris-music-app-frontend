@@ -148,9 +148,10 @@ module.exports = function(grunt) {
 		concat:{
 			"main":{
 				"src":[
-					"libs/*.js"
+					"libs/angular.js",
+					"libs/angular-route.min.js"
 				],
-				"dest":"js/main.js"
+				"dest":"assets/js/main.js"
 			},
 			"app":{
 				"src":[

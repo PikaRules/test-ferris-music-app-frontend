@@ -1,32 +1,89 @@
 
 (function(){
-	var app = angular.module('store',[]);
+	var app = angular.module('store',['ngRoute']);
 
-	var gems = [{
-		name: 'pitufo',
-		price: '34.99',
-		description: 'enano azul',
-		soldOut: false,
-		canPurchase: true
-	},{
-		name: 'pitufo2',
-		price: '22.99',
-		description: 'enano verde',
-		soldOut: false,
-		canPurchase: false
-	}];
 
-	app.controller('StoreController', ["$http", function($http){
-		this.products = gems;
-		$http.get('http://localhost:8080/api/usuarios').success(function(data) {
-	      console.log(data);
-	    });
+	app.config(['$routeProvider', function($routeProvider){
+		$routeProvider
+		.when('/crud/song',{
+			templateUrl: 'app/views/crud/song/all.html',
+			controller: 'crud.SongController'
+		})
+		.when('/crud/user',{
+			templateUrl: 'app/views/crud/user/all.html',
+			controller: 'crud.UserController'
+		})
+		.when('/reports/user',{
+			templateUrl: 'app/views/report/user/main.html',
+			controller: 'crud.UserController'
+		})
+		.when('/reports/song',{
+			templateUrl: 'app/views/report/song/main.html',
+			controller: 'crud.UserController'
+		});
 	}]);
 
-	app.directive('productContent', function(){
+	app.controller('RouterController', ['$scope','$route', '$routeParams', '$location', 
+		function($scope,$route,$routeParams,$location){
+			$scope.$route = $route;
+			$scope.$location = $location;
+			$scope.$routeParams = $routeParams;
+	}]);
+
+	app.controller('crud.SongController', ['$scope','$route', '$routeParams', '$location', 
+		function($scope,$route,$routeParams,$location){
+			$scope.$name = 'crud.SongController';
+			$scope.$params = $routeParams;
+	}]);
+
+	app.controller('crud.UserController', ['$scope','$route', '$routeParams', '$location', 
+		function($scope,$route,$routeParams,$location){
+			$scope.$route = 'crud.UserController';
+			$scope.$params = $routeParams;
+	}]);
+
+	app.controller('report.UserController', ['$scope','$route', '$routeParams', '$location', 
+		function($scope,$route,$routeParams,$location){
+			$scope.$route = 'report.UserController';
+			$scope.$params = $routeParams;
+	}]);
+
+	app.controller('report.SongController', ['$scope','$route', '$routeParams', '$location', 
+		function($scope,$route,$routeParams,$location){
+			$scope.$route = 'report.SongController';
+			$scope.$params = $routeParams;
+	}]);
+
+
+
+	var NavController = function($scope,$location){
+		var self = this;
+		this.navSelected = 1
+		this.subNavSelected = 0;
+		this.selectedUrl = '';
+
+		this.setNav = function( nav, urlKey ){
+			this.navSelected = nav;
+			this.subNavSelected = 0;
+			this.selectedUrl = urlKey;
+			$location.path(this.selectedUrl);
+		};
+
+		this.setSubNav = function( sub, urlKey ){
+			this.subNavSelected = sub;
+			this.selectedUrl = urlKey;
+			$location.path(this.selectedUrl);
+		};
+	};
+
+
+
+	app.directive('navBar',function(){
 		return {
 			restrict: 'E',
-			templateUrl: 'app/views/product/product-content.html'
+			templateUrl: 'app/views/nav.html',
+			controller: ['$scope','$location',NavController],
+			controllerAs: 'navbar'
 		};
 	});
 
