@@ -54,35 +54,33 @@
 			$scope.$params = $routeParams;
 	}]);
 
-
-
-	var NavController = function($scope,$location){
-		var self = this;
-		this.navSelected = 1
-		this.subNavSelected = 0;
-		this.selectedUrl = '';
-
-		this.setNav = function( nav, urlKey ){
-			this.navSelected = nav;
+	app.controller('NavController', ['$scope', '$location', 
+		function($scope,$location){
+			var self = this;
+			this.navSelected = 1
 			this.subNavSelected = 0;
-			this.selectedUrl = urlKey;
-			$location.path(this.selectedUrl);
-		};
+			this.selectedUrl = '';
 
-		this.setSubNav = function( sub, urlKey ){
-			this.subNavSelected = sub;
-			this.selectedUrl = urlKey;
-			$location.path(this.selectedUrl);
-		};
-	};
+			this.setNav = function( nav, urlKey ){
+				this.navSelected = nav;
+				this.subNavSelected = 0;
+				this.selectedUrl = urlKey;
+				$location.path(this.selectedUrl);
+			};
 
+			this.setSubNav = function( sub, urlKey ){
+				this.subNavSelected = sub;
+				this.selectedUrl = urlKey;
+				$location.path(this.selectedUrl);
+			};
+	}]);
 
 
 	app.directive('navBar',function(){
 		return {
 			restrict: 'E',
 			templateUrl: 'app/views/nav.html',
-			controller: ['$scope','$location',NavController],
+			controller: 'NavController',
 			controllerAs: 'navbar'
 		};
 	});
