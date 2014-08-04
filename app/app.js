@@ -15,11 +15,11 @@
 		})
 		.when('/reports/user',{
 			templateUrl: 'app/views/report/user/main.html',
-			controller: 'crud.UserController'
+			controller: 'report.UserController'
 		})
 		.when('/reports/song',{
 			templateUrl: 'app/views/report/song/main.html',
-			controller: 'crud.UserController'
+			controller: 'report.SongController'
 		});
 	}]);
 
@@ -42,10 +42,15 @@
 			$scope.$params = $routeParams;
 	}]);
 
-	app.controller('report.UserController', ['$scope','$route', '$routeParams', '$location', 
-		function($scope,$route,$routeParams,$location){
+	app.controller('report.UserController', ['$scope','$route', '$routeParams', '$location','$http', 
+		function($scope,$route,$routeParams,$location,$http){
 			$scope.$route = 'report.UserController';
 			$scope.$params = $routeParams;
+
+			$http.post('http://localhost:9080/api/usuarios/getAll').success(function(data) {
+		      	console.log(data);
+		    });
+
 	}]);
 
 	app.controller('report.SongController', ['$scope','$route', '$routeParams', '$location', 

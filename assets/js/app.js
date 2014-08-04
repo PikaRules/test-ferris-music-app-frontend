@@ -1,4 +1,14 @@
 
+(function(scope){
+
+	var config = {};
+
+	config.ferrisIp = 'localhost:8081'; 
+
+	scope.appConfig = config;
+
+})(this);
+
 (function(){
 	var app = angular.module('store',['ngRoute']);
 
@@ -15,11 +25,11 @@
 		})
 		.when('/reports/user',{
 			templateUrl: 'app/views/report/user/main.html',
-			controller: 'crud.UserController'
+			controller: 'report.UserController'
 		})
 		.when('/reports/song',{
 			templateUrl: 'app/views/report/song/main.html',
-			controller: 'crud.UserController'
+			controller: 'report.SongController'
 		});
 	}]);
 
@@ -42,10 +52,15 @@
 			$scope.$params = $routeParams;
 	}]);
 
-	app.controller('report.UserController', ['$scope','$route', '$routeParams', '$location', 
-		function($scope,$route,$routeParams,$location){
+	app.controller('report.UserController', ['$scope','$route', '$routeParams', '$location','$http', 
+		function($scope,$route,$routeParams,$location,$http){
 			$scope.$route = 'report.UserController';
 			$scope.$params = $routeParams;
+
+			$http.post('http://localhost:9080/api/usuarios/getAll').success(function(data) {
+		      	console.log(data);
+		    });
+
 	}]);
 
 	app.controller('report.SongController', ['$scope','$route', '$routeParams', '$location', 
@@ -56,47 +71,25 @@
 
 	app.controller('NavController', ['$scope', '$location', 
 		function($scope,$location){
-					var self = this;
-		this.navSelected = 1
-		this.subNavSelected = 0;
-		this.selectedUrl = '';
-
-		this.setNav = function( nav, urlKey ){
-			this.navSelected = nav;
+			var self = this;
+			this.navSelected = 1
 			this.subNavSelected = 0;
-			this.selectedUrl = urlKey;
-			$location.path(this.selectedUrl);
-		};
+			this.selectedUrl = '';
 
-		this.setSubNav = function( sub, urlKey ){
-			this.subNavSelected = sub;
-			this.selectedUrl = urlKey;
-			$location.path(this.selectedUrl);
-		};
+			this.setNav = function( nav, urlKey ){
+				this.navSelected = nav;
+				this.subNavSelected = 0;
+				this.selectedUrl = urlKey;
+				$location.path(this.selectedUrl);
+			};
+
+			this.setSubNav = function( sub, urlKey ){
+				this.subNavSelected = sub;
+				this.selectedUrl = urlKey;
+				$location.path(this.selectedUrl);
+			};
 	}]);
 
-/*
-	var NavController = function($scope,$location){
-		var self = this;
-		this.navSelected = 1
-		this.subNavSelected = 0;
-		this.selectedUrl = '';
-
-		this.setNav = function( nav, urlKey ){
-			this.navSelected = nav;
-			this.subNavSelected = 0;
-			this.selectedUrl = urlKey;
-			$location.path(this.selectedUrl);
-		};
-
-		this.setSubNav = function( sub, urlKey ){
-			this.subNavSelected = sub;
-			this.selectedUrl = urlKey;
-			$location.path(this.selectedUrl);
-		};
-	};
-
-*/
 
 	app.directive('navBar',function(){
 		return {

@@ -155,6 +155,7 @@ module.exports = function(grunt) {
 			},
 			"app":{
 				"src":[
+					"app/appConfig.js",
 					"app/services/**/*.js",
 					"app/controllers/**/*.js",
 					"app/app.js"
