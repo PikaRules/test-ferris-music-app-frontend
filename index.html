@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html ng-app="store">
+	<head>
+		<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+		<script type="text/javascript" src="assets/js/main.js"></script>	
+		<script type="text/javascript" src="assets/js/app.js"></script>
+	</head>
+	<body>
+		<div ng-controller="StoreController as store">
+			<product-content ng-repeat="product in store.products"></product-content>
+		</div>
+	</body>
+</html>
+
+		

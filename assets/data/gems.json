@@ -1,0 +1,13 @@
+[{
+		"name": "pitufo",
+		"price": "34.99",
+		"description": "enano azul",
+		"soldOut": false,
+		"canPurchase": true
+	},{
+		"name": "pitufo2",
+		"price": "22.99",
+		"description": "enano verde",
+		"soldOut": false,
+		"canPurchase": false
+	}]
