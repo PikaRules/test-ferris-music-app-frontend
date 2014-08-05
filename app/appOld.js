@@ -27,7 +27,7 @@
 
 	var NavController = function($scope){
 		var self = this;
-		this.navSelected = 1
+		this.navSelected = 1;
 		this.subNavSelected = 0;
 		this.navClass = "";
 		this.selectedNavClass = "selected";

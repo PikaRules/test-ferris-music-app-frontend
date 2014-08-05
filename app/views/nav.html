@@ -15,7 +15,7 @@
             </div>
             <div class="utility">
                 <ul>
-                    <li><a >Contact Us  {{navbar.navSelected}} {{navbar.subNavSelected}} </a></li>
+                    <li><a >Contact Us  {{navbar.nav.navSelected}} {{navbar.nav.subNavSelected}} </a></li>
                 </ul>
             </div>
         </div>
@@ -25,21 +25,21 @@
         
         <div class="collapse navbar-collapse" id="sencha-navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="dropdown hovernav"  ng-class="{selected:navbar.navSelected==1}" >
-                    <a class=" dropdown-toggle" ng-click="navbar.setNav(1, '/home')">Home</a>
+                <li class="dropdown hovernav"   >
+                    <a class=" dropdown-toggle" ng-click="navbar.nav.setNav(1, '/home')" ng-class="{active:navbar.nav.navSelected===1}" >Home</a>
                 </li>
-                <li class="dropdown hovernav" ng-class="{selected:navbar.navSelected==2}" >
-                    <a class=" dropdown-toggle" ng-click="navbar.setNav(2 , '/crud')" >CRUD</a>
+                <li class="dropdown hovernav"  >
+                    <a class=" dropdown-toggle" ng-click="navbar.nav.setNav(2 , '/crud')" ng-class="{active:navbar.nav.navSelected===2}" >CRUD</a>
                     <ul class="dropdown-menu support">
-                        <li  ng-click="navbar.setSubNav(1,'/crud/user')"><a >Users</a></li>
-                        <li ng-click="navbar.setSubNav(2,'/crud/song')" ><a >Songs</a></li>
+                        <li  ng-click="navbar.nav.setSubNav(2,1,'/crud/user')"><a >Users</a></li>
+                        <li  ng-click="navbar.nav.setSubNav(2,2,'/crud/song')" ><a >Songs</a></li>
                     </ul>
                 </li>
-                <li class="dropdown hovernav" ng-class="{selected:navbar.navSelected==3}" >
-                    <a class=" dropdown-toggle" ng-click="navbar.setNav(3 ,'/reports')" >Reports</a>
+                <li class="dropdown hovernav"  >
+                    <a class=" dropdown-toggle" ng-click="navbar.nav.setNav(3 ,'/reports')" ng-class="{active:navbar.nav.navSelected===3}">Reports</a>
                     <ul class="dropdown-menu support">
-                        <li  ng-click="navbar.setSubNav(1,'/reports/user')"><a >Users</a></li>
-                        <li  ng-click="navbar.setSubNav(2,'/reports/song')" ><a >Songs</a></li>
+                        <li  ng-click="navbar.nav.setSubNav(3,1,'/reports/user')"><a >Users</a></li>
+                        <li  ng-click="navbar.nav.setSubNav(3,2,'/reports/song')" ><a >Songs</a></li>
                     </ul>
                 </li>
                
@@ -47,3 +47,13 @@
         </div>
     </div>
 </nav>
+
+
+<div id="subnav" ng-show="navbar.nav.showMiddelNav">
+        <div class="content">
+            <ul>
+                <li><h3><a ng-class="{active:navbar.nav.middelTabSelected==='list'}"  ng-click="navbar.nav.setMiddelTab('list')" >List</a></h3></li>
+                <li><h3><a ng-class="{active:navbar.nav.middelTabSelected==='add'}" ng-click="navbar.nav.setMiddelTab('add')" >Add</a></h3></li>
+            </ul>
+        </div>
+</div>

@@ -1,0 +1,17 @@
+
+<div class="simple-form" >
+	<div class="content">
+		<label>Email</label><input ng-model="user.email" type="email"></imput><br>
+		<label>Name</label><input ng-model="user.name" type="text"></imput><br>
+	</div>
+	<div class="buttons">
+		<button type="button" ng-click="save(user)">Add</button>
+	</div>
+	{{ master | json }}
+	<div class="message-ok" ng-show="isSuccess">
+		The user was created.
+	</div>
+	<div class="message-failed" ng-show="isFailed">
+		The user could not be created
+	</div>
+</div>

@@ -34,6 +34,84 @@ body {
   color: green;
 }
 
+.dropdown-toggle:hover {
+  cursor:pointer;
+}
+
+.dropdown-menu li:hover{
+  cursor:pointer;
+}
+
+
+.welcome-content {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: 190px;
+  margin-top: 12%;
+  color: #ba245f;
+}
+
+
+.tile {
+  font-family: Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.6rem;
+  font-weight: 12px;
+  margin: 25px;
+  padding: 5px;
+  color: #191919;
+  border: 1px solid #aeadab;
+  background-color: #CCFFCC;
+  width: 300px;
+  height: 100px;
+  position: relative;
+  float: left;
+}
+
+.tile .bold {
+  font-weight: bold;
+}
+
+.simple-form {
+  font-family: Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.6rem;
+  font-weight: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  padding: 0;
+  color: #191919;
+  border: 1px solid #D1D1D1;
+  background-color: #EDFFC9;
+  width: 300px;
+  min-height: 100px;
+  height: : auto;
+  margin-top: 30px;
+}
+
+.simple-form .content{
+  padding: 5px;
+}
+
+.simple-form label {
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+.simple-form button {
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  position: relative;
+  display: block;
+}
+
+.simple-form input {
+  width: 80%;
+}
+
 
 /*
 Navbar "hovernav" dropdown menu - this works only for screen sizes larger than phones.

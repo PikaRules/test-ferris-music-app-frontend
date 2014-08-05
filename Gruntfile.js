@@ -8,22 +8,22 @@ module.exports = function(grunt) {
 			' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;\n */'
 		},
 		jshint: {
-			files: ['assets/js/**/*.js','assets/js/app.js'],
+			files: ['app/**/*.js'],
 			options: {
 				curly: true,
-				eqeqeq: true,
 				immed: true,
 				latedef: true,
 				newcap: true,
 				noarg: true,
 				sub: true,
-				undef: true,
+				undef: false,
 				boss: true,
 				eqnull: true,
 				forin: true,
 				browser: true,
 				devel: true, //TODO: Remove this in production.
 				globals: {
+					angular: true,
 					exports: true,
 					module: false,
 					can: true,
@@ -32,41 +32,17 @@ module.exports = function(grunt) {
 					Helpers: true,
 					Models: true,
 					Controllers: true,
-                    Components: true,
-					ActiveXObject: true,
-					flowplayer: true,
-					BrowserDetect: true,
-					Zenbox: true,
-					FB: true,
-					MaintenanceScreen:true,
-					getActualDateTimeFormat: true,//, //recordar quitar esto...
-					formatAMPM: true,
-					Faye: true,
-					_gaq: true,
-					ga:true,
-					qq: true,
-					kWidget: true,
-					respond: true,
-					Pixastic: true,
-					YT: true,
-					onYouTubeIframeAPIReady: true,
-					jwplayer: true,
-					yourls: true,
-					escape: true,
-					ZeroClipboard: true,
-					demand: true,
-					moment: true,
-					ga: true,
-					AmCharts: true
+                    Components: true
 				},
 			}
 		},
 		watch: {
-		      files: ['assets/js/**/*.js','assets/js/app.js'],
+		      files: ['libs/**/*.js','app/**/*.js','assets/css/**/*.css','index.html','app/views/**/*.html'],
     		  tasks: ['jshint', 'concat'],
     		  options:{
     		  	interrupt:true,
     		  	globals: {
+    		  		angular: true,
 					exports: true,
 					module: false,
 					can: true,
@@ -75,33 +51,9 @@ module.exports = function(grunt) {
 					Helpers: true,
 					Models: true,
 					Controllers: true,
-                    Components: true,
-					ActiveXObject: true,
-					flowplayer: true,
-					BrowserDetect: true,
-					Zenbox: true,
-					FB: true,
-					MaintenanceScreen:true,
-					getActualDateTimeFormat: true,//, //recordar quitar esto...
-					formatAMPM: true,
-					Faye: true,
-					_gaq: true,
-					ga:true,
-					qq: true,
-					kWidget: true,
-					respond: true,
-					Pixastic: true,
-					YT: true,
-					onYouTubeIframeAPIReady: true,
-					jwplayer: true,
-					yourls: true,
-					escape: true,
-					ZeroClipboard: true,
-					demand: true,
-					moment: true,
-					ga: true
-				}
+                    Components: true
     		  }
+    		}
 		},
 		cssmin: {
 		  minify: {
@@ -132,7 +84,8 @@ module.exports = function(grunt) {
 		    watch: {
 		      	options: {
 		        	port: 8081,
-		        	base: '.'
+		        	base: '.',
+		        	files: ['**/*.js','**/*.html']
 		      }
 		    }
 		},
@@ -151,16 +104,17 @@ module.exports = function(grunt) {
 					"libs/angular.js",
 					"libs/angular-route.min.js"
 				],
-				"dest":"assets/js/main.js"
+				"dest":"deploy/main.js"
 			},
 			"app":{
 				"src":[
 					"app/appConfig.js",
 					"app/services/**/*.js",
+					"app/directives/**/*.js",
 					"app/controllers/**/*.js",
 					"app/app.js"
 				],
-				"dest":"assets/js/app.js"
+				"dest":"deploy/app.js"
 			}
 		},
 		test:{}
@@ -181,6 +135,6 @@ module.exports = function(grunt) {
     grunt.registerTask('dev-clean', ['concat','strip']);
 	grunt.registerTask('dev', ['concat']);
 	grunt.registerTask('production', ['concat','uglify','cssmin']);
-	grunt.registerTask('server:watch',['concat','connect','watch','jshint']);
+	grunt.registerTask('server:watch',['concat','jshint','connect','watch']);
 	grunt.registerTask('test', ['qunit']);
 };

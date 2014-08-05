@@ -1,2 +1,11 @@
 
-show all users
+
+<div ng-hide="users.length>0"> There are not users </div>
+
+
+<div ng-repeat=" user in users" class="tile" ng-show="nav.middelTabSelected=='list'" >
+	<div> <span class="bold" >Email :</span> {{user.email}}</div>
+	<div> <span class="bold">Name :</span> {{user.name}}</div>
+</div>
+
+<form-user-add ng-show="nav.middelTabSelected=='add'" ></form-user-add>
