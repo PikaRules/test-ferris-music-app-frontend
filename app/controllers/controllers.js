@@ -95,8 +95,8 @@
 			    $http({
 				    method: 'POST',
 				    url: 'http://'+ appConfig.ferrisIp +'/api/usuarios/addNew',
-				    data: {"cosa":"asff"},
-				    headers: {'Content-Type': 'application/json'}
+				    data: $scope.master,
+				    headers: { 'Content-Type': 'application/json; charset=utf-8', 'dataType':'json' }
 				}).success(function(data) {
 			      	$scope.isSuccess = true;
 			    }).error(function(data){
