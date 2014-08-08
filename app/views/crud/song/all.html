@@ -1,3 +1,12 @@
 
 
-show all songs
+<div ng-show="songs.length<=0 && nav.middelTabSelected=='list'"> There are not songs </div>
+
+
+<div ng-repeat=" song in songs" class="tile" ng-show="nav.middelTabSelected=='list'" >
+	<div> <span class="bold" >Email :</span> {{song.title}}</div>
+	<div> <span class="bold">Name :</span> {{song.description}}</div>
+	<div><span class="bold">Artist :</span> {{song.artist.name}}</div>
+</div>
+
+<form-song-add ng-show="nav.middelTabSelected=='add'" ></form-song-add>

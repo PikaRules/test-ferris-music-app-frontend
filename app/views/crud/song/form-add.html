@@ -1,0 +1,18 @@
+
+<div class="simple-form" >
+	<div class="content">
+		<label>Title</label><input ng-model="mySong.title" type="text"></imput><br>
+		<label>Description</label><input ng-model="mySong.description" type="text"></imput><br>
+		<label class="bold">Artists </label><select ng-model="myArtist" ng-options="artist.name for artist in artists"></select><br>
+	</div>
+	<div class="buttons">
+		<button type="button" ng-click="save(mySong,myArtist)">Add</button>
+	</div>
+	{{ master | json }}
+	<div class="message-ok" ng-show="isSuccess">
+		The user was created.
+	</div>
+	<div class="message-failed" ng-show="isFailed">
+		The user could not be created
+	</div>
+</div>

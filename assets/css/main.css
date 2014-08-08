@@ -75,7 +75,7 @@ body {
 
 .simple-form {
   font-family: Arial,sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.6rem;
   font-weight: 12px;
   margin-left: auto;
@@ -85,19 +85,20 @@ body {
   color: #191919;
   border: 1px solid #D1D1D1;
   background-color: #EDFFC9;
-  width: 300px;
+  width: 700px;
   min-height: 100px;
   height: : auto;
   margin-top: 30px;
 }
 
 .simple-form .content{
-  padding: 5px;
+  padding: 30px 20px;
 }
 
 .simple-form label {
   margin-right: 15px;
   font-weight: bold;
+  width: 20%;
 }
 
 .simple-form button {
@@ -109,7 +110,11 @@ body {
 }
 
 .simple-form input {
-  width: 80%;
+  width: 70%;
+}
+
+.simple-form input[type="radio"] {
+  width: 40px;
 }
 
 
