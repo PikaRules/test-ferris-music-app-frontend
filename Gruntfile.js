@@ -83,7 +83,7 @@ module.exports = function(grunt) {
 		connect: {
 		    watch: {
 		      	options: {
-		        	port: 8081,
+		        	port: 8080,
 		        	base: '.',
 		        	hostname: 'localhost',
 		        	files: ['**/*.js','**/*.html'],
@@ -102,7 +102,7 @@ module.exports = function(grunt) {
 		      proxies: [{
 		      	context: '/api',
 		      	host: 'localhost',
-		      	port: 8080,
+		      	port: 9080,
 		      	changeOrigin: true
 		      }]
 		    }

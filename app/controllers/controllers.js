@@ -30,18 +30,22 @@
 				title: '',
 				description:''
 			};
+			$scope.allSongs = 0;
+
+			$http.get('http://'+ appConfig.ferrisIp +'/api/artists/getAll').success(function(data) {
+		      	$scope.artists = data;
+		      	if ( data.length > 0 ) {
+			      	$scope.myArtist = data[0];
+			    }
+		    });
+
 
 
 			$scope.$watch('nav.middelTabSelected', function() {
 				if ( $scope.nav.middelTabSelected === 'list' ) {
-					$http.get('http://'+ appConfig.ferrisIp +'/api/artists/getAll').success(function(data) {
-					      	$scope.artists = data;
-					      	if ( data.length > 0 ) {
-						      	$scope.myArtist = data[0];
-						    }
-				    });
 				    $http.get('http://'+ appConfig.ferrisIp +'/api/songs/getAll').success(function(data) {
-					      	$scope.songs = data;
+				      	$scope.songs = data;
+				      	$scope.allSongs = data.length;
 				    });
 				}
 		   });
@@ -55,11 +59,13 @@
 
 			$scope.nav = NavControllerSharedData;
 			$scope.users = [];
+			$scope.allUsers = 0;
 
 			$scope.$watch('nav.middelTabSelected', function() {
 				if ( $scope.nav.middelTabSelected === 'list' ) {
 					$http.get('http://'+ appConfig.ferrisIp +'/api/usuarios/getAll').success(function(data) {
-							      	$scope.users = data;
+				      	$scope.users = data;
+				      	$scope.allUsers = data.length;
 				    });
 				}
 		   });
@@ -76,11 +82,13 @@
 			$scope.nav = NavControllerSharedData;
 			$scope.artists = [];
 			$scope.artist = { 'sex' : 'male', 'description': '', 'name' :'' };
+			$scope.allArtists = 0;
 
 			$scope.$watch('nav.middelTabSelected', function() {
 				if ( $scope.nav.middelTabSelected === 'list' ) {
 					$http.get('http://'+ appConfig.ferrisIp +'/api/artists/getAll').success(function(data) {
 					      	$scope.artists = data;
+					      	$scope.allArtists = data.length;
 				    });
 				}
 		   });

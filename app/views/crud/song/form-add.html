@@ -6,7 +6,7 @@
 		<label class="bold">Artists </label><select ng-model="myArtist" ng-options="artist.name for artist in artists"></select><br>
 	</div>
 	<div class="buttons">
-		<button type="button" ng-click="save(mySong,myArtist)">Add</button>
+		<button type="button" ng-click="save(myArtist,mySong)">Add</button>
 	</div>
 	{{ master | json }}
 	<div class="message-ok" ng-show="isSuccess">

@@ -2,11 +2,13 @@
 
 <div ng-show="artists.length<=0 && nav.middelTabSelected=='list'"> There are not users </div>
 
-
-<div ng-repeat=" artist in artists" class="tile" ng-show="nav.middelTabSelected=='list'" >
-	<div> <span class="bold">Name :</span> {{artist.name}}</div>
-	<div> <span class="bold" >Sex :</span> {{artist.sex}}</div>
-	<div> <span class="bold" >Description :</span> {{artist.description}}</div>
+<div ng-show="nav.middelTabSelected=='list'">
+	<div class="center-title" >Artists: {{allArtists}}</div>
+	<div ng-repeat=" artist in artists" class="tile"  >
+		<div> <span class="bold">Name :</span> {{artist.name}}</div>
+		<div> <span class="bold" >Sex :</span> {{artist.sex}}</div>
+		<div> <span class="bold" >Description :</span> {{artist.description}}</div>
+	</div>
 </div>
 
 <form-artist-add ng-show="nav.middelTabSelected=='add'" ></form-artist-add>
