@@ -20,4 +20,22 @@
 		};
 	});
 
+	app.directive('formArtistAdd',function(){
+		return {
+			restrict: 'E',
+			templateUrl: 'app/views/crud/artist/form-add.html',
+			controller: 'FormArtistAddController',
+			controllerAs: 'form'
+		};
+	});
+
+	app.directive('formSongAdd',function(){
+		return {
+			restrict: 'E',
+			templateUrl: 'app/views/crud/song/form-add.html',
+			controller: 'FormSongAddController',
+			controllerAs: 'form'
+		};
+	});
+
 })(this,angular);

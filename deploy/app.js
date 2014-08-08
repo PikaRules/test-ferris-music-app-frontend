@@ -71,6 +71,24 @@
 		};
 	});
 
+	app.directive('formArtistAdd',function(){
+		return {
+			restrict: 'E',
+			templateUrl: 'app/views/crud/artist/form-add.html',
+			controller: 'FormArtistAddController',
+			controllerAs: 'form'
+		};
+	});
+
+	app.directive('formSongAdd',function(){
+		return {
+			restrict: 'E',
+			templateUrl: 'app/views/crud/song/form-add.html',
+			controller: 'FormSongAddController',
+			controllerAs: 'form'
+		};
+	});
+
 })(this,angular);
 (function(namespace,angular){
 
@@ -90,11 +108,35 @@
 			$scope.$routeParams = $routeParams;
 	}]);
 
-	app.controller('crud.SongController', ['$scope','$route', '$routeParams', '$location', 'NavControllerSharedData',
-		function($scope,$route,$routeParams,$location, NavControllerSharedData ){
+	app.controller('crud.SongController', ['$scope','$route', '$routeParams', '$location', '$http','NavControllerSharedData',
+		function($scope,$route,$routeParams,$location, $http, NavControllerSharedData ){
 			$scope.$name = 'crud.SongController';
 			$scope.$params = $routeParams;
 			NavControllerSharedData.setSubNav( 2, 2 );
+
+			$scope.nav = NavControllerSharedData;
+			$scope.artists = [];
+			$scope.myArtist = {};
+			$scope.songs = [];
+			$scope.mySong = {
+				title: '',
+				description:''
+			};
+
+
+			$scope.$watch('nav.middelTabSelected', function() {
+				if ( $scope.nav.middelTabSelected === 'list' ) {
+					$http.get('http://'+ appConfig.ferrisIp +'/api/artists/getAll').success(function(data) {
+					      	$scope.artists = data;
+					      	if ( data.length > 0 ) {
+						      	$scope.myArtist = data[0];
+						    }
+				    });
+				    $http.get('http://'+ appConfig.ferrisIp +'/api/songs/getAll').success(function(data) {
+					      	$scope.songs = data;
+				    });
+				}
+		   });
 	}]);
 
 	app.controller('crud.UserController', ['$scope','$route', '$routeParams', '$location', '$http', 'NavControllerSharedData',
@@ -110,6 +152,27 @@
 				if ( $scope.nav.middelTabSelected === 'list' ) {
 					$http.get('http://'+ appConfig.ferrisIp +'/api/usuarios/getAll').success(function(data) {
 							      	$scope.users = data;
+				    });
+				}
+		   });
+
+			
+	}]);
+
+	app.controller('crud.ArtistController', ['$scope','$route', '$routeParams', '$location', '$http', 'NavControllerSharedData',
+		function($scope,$route,$routeParams,$location, $http, NavControllerSharedData){
+			$scope.$route = 'crud.ArtistController';
+			$scope.$params = $routeParams;
+			NavControllerSharedData.setSubNav( 2, 1 );
+
+			$scope.nav = NavControllerSharedData;
+			$scope.artists = [];
+			$scope.artist = { 'sex' : 'male', 'description': '', 'name' :'' };
+
+			$scope.$watch('nav.middelTabSelected', function() {
+				if ( $scope.nav.middelTabSelected === 'list' ) {
+					$http.get('http://'+ appConfig.ferrisIp +'/api/artists/getAll').success(function(data) {
+					      	$scope.artists = data;
 				    });
 				}
 		   });
@@ -181,6 +244,63 @@
 	}]);
 
 
+	app.controller('FormArtistAddController', ['$scope','$http', 
+		function($scope,$http){
+			$scope.master = {};
+			$scope.isSuccess = false;
+			$scope.isFailed = false;
+			
+			$scope.save = function( artist ){
+				$scope.isSuccess = false;
+				$scope.isFailed = false;
+				$scope.master = angular.copy(artist);
+
+			    $http({
+				    method: 'POST',
+				    url: 'http://'+ appConfig.ferrisIp +'/api/artists/addNew',
+				    data: $scope.master,
+				    headers: { 'Content-Type': 'application/json; charset=utf-8', 'dataType':'json' }
+				}).success(function(data) {
+			      	$scope.isSuccess = true;
+			    }).error(function(data){
+			    	$scope.isFailed = true;
+			    });
+
+			};
+	}]);
+
+
+	app.controller('FormSongAddController', ['$scope','$http', 
+		function($scope,$http){
+			$scope.song = {};
+			$scope.artist = {};
+			$scope.data = {};
+			$scope.isSuccess = false;
+			$scope.isFailed = false;
+			
+			$scope.save = function( artist, song ){
+				$scope.isSuccess = false;
+				$scope.isFailed = false;
+				$scope.song = angular.copy(song);
+				$scope.artist = angular.copy(artist);
+				$scope.data.song = $scope.song;
+				$scope.data.artist = $scope.artist;
+
+			    $http({
+				    method: 'POST',
+				    url: 'http://'+ appConfig.ferrisIp +'/api/songs/addNew',
+				    data: $scope.data,
+				    headers: { 'Content-Type': 'application/json; charset=utf-8', 'dataType':'json' }
+				}).success(function(data) {
+			      	$scope.isSuccess = true;
+			    }).error(function(data){
+			    	$scope.isFailed = true;
+			    });
+
+			};
+	}]);
+
+
 
 
 })(this,angular);
@@ -207,6 +327,10 @@
 		.when('/crud/user',{
 			templateUrl: 'app/views/crud/user/all.html',
 			controller: 'crud.UserController'
+		})
+		.when('/crud/artist',{
+			templateUrl: 'app/views/crud/artist/all.html',
+			controller: 'crud.ArtistController'
 		})
 		.when('/reports/user',{
 			templateUrl: 'app/views/report/user/main.html',

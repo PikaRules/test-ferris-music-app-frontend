@@ -22,6 +22,10 @@
 			templateUrl: 'app/views/crud/user/all.html',
 			controller: 'crud.UserController'
 		})
+		.when('/crud/artist',{
+			templateUrl: 'app/views/crud/artist/all.html',
+			controller: 'crud.ArtistController'
+		})
 		.when('/reports/user',{
 			templateUrl: 'app/views/report/user/main.html',
 			controller: 'report.UserController'

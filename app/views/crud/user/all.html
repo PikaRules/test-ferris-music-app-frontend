@@ -1,6 +1,6 @@
 
 
-<div ng-hide="users.length>0"> There are not users </div>
+<div ng-show="users.length<=0 && nav.middelTabSelected=='list' "> There are not users </div>
 
 
 <div ng-repeat=" user in users" class="tile" ng-show="nav.middelTabSelected=='list'" >
