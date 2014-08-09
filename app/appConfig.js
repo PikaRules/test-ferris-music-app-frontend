@@ -3,7 +3,7 @@
 
 	var config = {};
 
-	config.ferrisIp = 'localhost:9080'; 
+	config.ferrisIp = 'music-app-bakcend-test1.appspot.com'; 
 
 	scope.appConfig = config;
 

@@ -11,8 +11,17 @@
 
 	app.config(['$routeProvider', function($routeProvider){
 		$routeProvider
+		.when('/',{
+			templateUrl: 'app/views/home.html'
+		})
 		.when('/home',{
 			templateUrl: 'app/views/home.html'
+		})
+		.when('/crud',{
+			templateUrl: 'app/views/crud/crud.html'
+		})
+		.when('/reports',{
+			templateUrl: 'app/views/report/reports.html'
 		})
 		.when('/crud/song',{
 			templateUrl: 'app/views/crud/song/all.html',

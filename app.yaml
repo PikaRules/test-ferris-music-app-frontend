@@ -4,6 +4,23 @@ runtime: python27
 api_version: 1
 threadsafe: yes
 
+
+
+skip_files:
+- ^(.*/)?app\.ya?ml
+- ^(.*/)?index\.ya?ml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^(.*/)?.*\.scss
+- ^(.*/)?.*\.less
+- ^/docs*
+- ^(.*/)?.node_modules\.*
+- ^node_modules
+
+
 handlers:
 
 

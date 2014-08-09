@@ -3,7 +3,7 @@
 
 	var config = {};
 
-	config.ferrisIp = 'localhost:9080'; 
+	config.ferrisIp = 'music-app-bakcend-test1.appspot.com'; 
 
 	scope.appConfig = config;
 
@@ -325,8 +325,17 @@
 
 	app.config(['$routeProvider', function($routeProvider){
 		$routeProvider
+		.when('/',{
+			templateUrl: 'app/views/home.html'
+		})
 		.when('/home',{
 			templateUrl: 'app/views/home.html'
+		})
+		.when('/crud',{
+			templateUrl: 'app/views/crud/crud.html'
+		})
+		.when('/reports',{
+			templateUrl: 'app/views/report/reports.html'
 		})
 		.when('/crud/song',{
 			templateUrl: 'app/views/crud/song/all.html',
