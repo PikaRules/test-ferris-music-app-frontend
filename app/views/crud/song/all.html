@@ -1,6 +1,6 @@
 
-
-<div ng-show="songs.length<=0 && nav.middelTabSelected=='list'"> There are not songs </div>
+<div style="height:100%;position:relative;">
+<div ng-show="songs.length<=0 && nav.middelTabSelected=='list'" > There are not songs </div>
 
 <div ng-show="nav.middelTabSelected=='list'">
 	<div class="center-title" >Songs: {{allSongs}}</div>
@@ -11,4 +11,9 @@
 	</div>
 </div>
 
+<div class="loading-mask" ng-show="loadingAll">
+		  <div class="loading-img" ></div>
+</div>
+
 <form-song-add ng-show="nav.middelTabSelected=='add'" ></form-song-add>
+</div>

@@ -1,11 +1,12 @@
 
 <div class="simple-form" >
 	<div class="content">
+		<div class='center-title'> Add new user</div>
 		<label>Email</label><input ng-model="user.email" type="email"></imput><br>
 		<label>Name</label><input ng-model="user.name" type="text"></imput><br>
 	</div>
 	<div class="buttons">
-		<button type="button" ng-click="save(user)">Add</button>
+		<button type="button" class="btn-custom" ng-click="save(user)">Add</button>
 	</div>
 	{{ master | json }}
 	<div class="message-ok" ng-show="isSuccess">
@@ -13,5 +14,8 @@
 	</div>
 	<div class="message-failed" ng-show="isFailed">
 		The user could not be created
+	</div>
+	<div class="loading-mask" ng-show="loading">
+  		  <div class="loading-img" ></div>
 	</div>
 </div>

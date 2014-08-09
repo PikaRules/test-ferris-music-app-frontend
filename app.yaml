@@ -1,4 +1,4 @@
-application: quiet-terra-667    #.appspot.com
+application: music-app-frontend-test1    #.appspot.com
 version: 1
 runtime: python27
 api_version: 1

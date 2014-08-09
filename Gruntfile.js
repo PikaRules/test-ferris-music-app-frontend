@@ -81,7 +81,7 @@ module.exports = function(grunt) {
 			files:['index.html']
 		},
 		connect: {
-		    watch: {
+		    proxy: {
 		      	options: {
 		        	port: 8080,
 		        	base: '.',
@@ -105,7 +105,15 @@ module.exports = function(grunt) {
 		      	port: 9080,
 		      	changeOrigin: true
 		      }]
-		    }
+		    },
+		    watch: {
+		      	options: {
+		        	port: 8080,
+		        	base: '.',
+		        	hostname: 'localhost',
+		        	files: ['**/*.js','**/*.html'],
+				}
+		      }
 		},
         strip: {
 			dist: {
@@ -155,6 +163,7 @@ module.exports = function(grunt) {
     grunt.registerTask('dev-clean', ['concat','strip']);
 	grunt.registerTask('dev', ['concat']);
 	grunt.registerTask('production', ['concat','uglify','cssmin']);
-	grunt.registerTask('server:watch',['concat','jshint','configureProxies:watch','connect:watch','watch']);
+	grunt.registerTask('server:proxy',['concat','jshint','configureProxies:proxy','connect:proxy','watch']);
+	grunt.registerTask('server:watch',['concat','jshint','connect:watch','watch']);
 	grunt.registerTask('test', ['qunit']);
 };

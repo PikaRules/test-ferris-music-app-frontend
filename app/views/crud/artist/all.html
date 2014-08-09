@@ -1,6 +1,6 @@
 
-
-<div ng-show="artists.length<=0 && nav.middelTabSelected=='list'"> There are not users </div>
+<div style="height:100%;position:relative;">
+<div ng-show="artists.length<=0 && nav.middelTabSelected=='list'" class="body-main-content" > There are not users </div>
 
 <div ng-show="nav.middelTabSelected=='list'">
 	<div class="center-title" >Artists: {{allArtists}}</div>
@@ -11,4 +11,10 @@
 	</div>
 </div>
 
+<div class="loading-mask" ng-show="loadingAll">
+		  <div class="loading-img" ></div>
+</div>
+
+
 <form-artist-add ng-show="nav.middelTabSelected=='add'" ></form-artist-add>
+</div>

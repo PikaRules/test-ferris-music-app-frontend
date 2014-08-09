@@ -123,11 +123,12 @@
 				description:''
 			};
 			$scope.allSongs = 0;
+			$scope.loadingAll = true; 
 
 			$http.get('http://'+ appConfig.ferrisIp +'/api/artists/getAll').success(function(data) {
-		      	$scope.artists = data;
-		      	if ( data.length > 0 ) {
-			      	$scope.myArtist = data[0];
+			     $scope.artists = data;
+		      	if ( $scope.artists.length > 0 ) {
+			      	$scope.myArtist = $scope.artists[0];
 			    }
 		    });
 
@@ -135,10 +136,16 @@
 
 			$scope.$watch('nav.middelTabSelected', function() {
 				if ( $scope.nav.middelTabSelected === 'list' ) {
+					$scope.loadingAll = true;
 				    $http.get('http://'+ appConfig.ferrisIp +'/api/songs/getAll').success(function(data) {
 				      	$scope.songs = data;
 				      	$scope.allSongs = data.length;
+				      	$scope.loadingAll = false;
+				    }).error(function(){
+				    	$scope.loadingAll = false; 
 				    });
+				} else {
+					$scope.loadingAll = false;
 				}
 		   });
 	}]);
@@ -152,13 +159,20 @@
 			$scope.nav = NavControllerSharedData;
 			$scope.users = [];
 			$scope.allUsers = 0;
+			$scope.loadingAll = true; 
 
 			$scope.$watch('nav.middelTabSelected', function() {
 				if ( $scope.nav.middelTabSelected === 'list' ) {
+					$scope.loadingAll = true;
 					$http.get('http://'+ appConfig.ferrisIp +'/api/usuarios/getAll').success(function(data) {
 				      	$scope.users = data;
 				      	$scope.allUsers = data.length;
+				      	$scope.loadingAll = false;
+				    }).error(function(){
+				    	$scope.loadingAll = false;
 				    });
+				} else {
+					$scope.loadingAll = false;
 				}
 		   });
 
@@ -175,13 +189,20 @@
 			$scope.artists = [];
 			$scope.artist = { 'sex' : 'male', 'description': '', 'name' :'' };
 			$scope.allArtists = 0;
+			$scope.loadingAll = true; 
 
 			$scope.$watch('nav.middelTabSelected', function() {
 				if ( $scope.nav.middelTabSelected === 'list' ) {
+					$scope.loadingAll = true;
 					$http.get('http://'+ appConfig.ferrisIp +'/api/artists/getAll').success(function(data) {
 					      	$scope.artists = data;
 					      	$scope.allArtists = data.length;
+					      	$scope.loadingAll = false;
+				    }).error(function(){
+				    	$scope.loadingAll = false;
 				    });
+				} else {
+					$scope.loadingAll = false;
 				}
 		   });
 
@@ -226,14 +247,14 @@
 			$scope.master = {};
 			$scope.isSuccess = false;
 			$scope.isFailed = false;
-			
+			$scope.loading = false;
 			
 
 			$scope.save = function( user ){
 				$scope.isSuccess = false;
 				$scope.isFailed = false;
 				$scope.master = angular.copy(user);
-
+				$scope.loading = true;
 
 				
 
@@ -242,10 +263,17 @@
 				    url: 'http://'+ appConfig.ferrisIp +'/api/usuarios/addNew',
 				    data: $scope.master,
 				    headers: { 'Content-Type': 'application/json; charset=utf-8', 'dataType':'json' }
-				}).success(function(data) {
-			      	$scope.isSuccess = true;
+				}).success(function(resp) {
+			      	if( resp.success ){
+				      	$scope.isSuccess = true;
+				     } else {
+				     	$scope.isSuccess = false;
+				     	$scope.isFailed = true;
+				     }
+			      	$scope.loading = false;
 			    }).error(function(data){
 			    	$scope.isFailed = true;
+			    	$scope.loading = false;
 			    });
 
 			};
@@ -257,21 +285,30 @@
 			$scope.master = {};
 			$scope.isSuccess = false;
 			$scope.isFailed = false;
+			$scope.loading = false;
 			
 			$scope.save = function( artist ){
 				$scope.isSuccess = false;
 				$scope.isFailed = false;
 				$scope.master = angular.copy(artist);
+				$scope.loading = true;
 
 			    $http({
 				    method: 'POST',
 				    url: 'http://'+ appConfig.ferrisIp +'/api/artists/addNew',
 				    data: $scope.master,
 				    headers: { 'Content-Type': 'application/json; charset=utf-8', 'dataType':'json' }
-				}).success(function(data) {
-			      	$scope.isSuccess = true;
+				}).success(function(resp) {
+			      	if( resp.success ){
+				      	$scope.isSuccess = true;
+				     } else {
+				     	$scope.isSuccess = false;
+				     	$scope.isFailed = true;
+				     }
+			      	$scope.loading = false;
 			    }).error(function(data){
 			    	$scope.isFailed = true;
+			    	$scope.loading = false;
 			    });
 
 			};
@@ -285,6 +322,7 @@
 			$scope.data = {};
 			$scope.isSuccess = false;
 			$scope.isFailed = false;
+			$scope.loading = false;
 			
 			$scope.save = function( artist, song ){
 				$scope.isSuccess = false;
@@ -293,16 +331,24 @@
 				$scope.artist = angular.copy(artist);
 				$scope.data.song = $scope.song;
 				$scope.data.artist = $scope.artist;
+				$scope.loading = true;
 
 			    $http({
 				    method: 'POST',
 				    url: 'http://'+ appConfig.ferrisIp +'/api/songs/addNew',
 				    data: $scope.data,
 				    headers: { 'Content-Type': 'application/json; charset=utf-8', 'dataType':'json' }
-				}).success(function(data) {
-			      	$scope.isSuccess = true;
-			    }).error(function(data){
+				}).success(function(resp) {
+					if( resp.success ){
+				      	$scope.isSuccess = true;
+				     } else {
+				     	$scope.isSuccess = false;
+				     	$scope.isFailed = true;
+				     }
+			      	$scope.loading = false;
+			    }).error(function(resp){
 			    	$scope.isFailed = true;
+			    	$scope.loading = false;
 			    });
 
 			};
