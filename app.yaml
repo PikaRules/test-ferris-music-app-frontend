@@ -28,13 +28,9 @@ handlers:
   static_files: assets/\1/\2
   upload: assets/(img|data|css|js|partials)/(.*)
 
-- url: /app/(controllers|directives|services|views)/(.*)
+- url: /app/(views)/(.*)
   static_files: app/\1/\2
-  upload: app/(controllers|directives|services|views)/(.*)
-
-- url: /app/(.*)
-  static_files: app/\1
-  upload: app/(.*)
+  upload: app/(views)/(.*)
 
 - url: /deploy/(.*)
   static_files: deploy/\1
